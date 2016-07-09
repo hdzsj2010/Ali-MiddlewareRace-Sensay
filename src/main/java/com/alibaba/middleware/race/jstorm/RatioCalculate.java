@@ -72,7 +72,7 @@ public class RatioCalculate implements IRichBolt {
 					for(long i = startTime; i<=endTime; i+=60) {
 						wirelessAmount+=platformMap.get(i).getWirelessAmount();
 						pcAmount+=platformMap.get(i).getPcAmount();
-						if(pcAmount>0.01) {
+						if(pcAmount>=0.01) {
 							ratio=wirelessAmount/pcAmount;
 							result = tairManager.put(RaceConfig.TairNamespace, ratioPrefix +i, df.format(ratio));
 							//LOG.info("Tair Input: "+ RaceConfig.prex_ratio + i + ": " + pcAmount + " " + wirelessAmount + " " + df.format(ratio));

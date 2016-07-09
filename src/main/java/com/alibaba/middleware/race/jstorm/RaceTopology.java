@@ -49,7 +49,7 @@ public class RaceTopology {
         conf.setNumWorkers(4);
         conf.setNumAckers(2);
         //设置spout中存在最大的tuple数量
-        //conf.setMaxSpoutPending(10000);
+        conf.setMaxSpoutPending(10000);
         //conf.put(Config.STORM_CLUSTER_MODE, "distributed");
         //设置topolog模式为分布式，这样topology就可以放到JStorm集群上运行
         try {
