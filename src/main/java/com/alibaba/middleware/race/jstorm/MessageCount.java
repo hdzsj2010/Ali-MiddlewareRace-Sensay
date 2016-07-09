@@ -45,7 +45,7 @@ public class MessageCount implements IRichBolt {
 	private static final int namespace=RaceConfig.TairNamespace;
 	private static final String tmallPrefix="platformTmall_457160tzhg_";
 	private static final String taobaoPrefix="platformTaobao_457160tzhg_";
-	private static final String ratioPrefix="ratio_457160tzhg_";
+	
 	//private static long startTime=Long.MAX_VALUE;
 	//private static long endTime=Long.MIN_VALUE;
 	//private static DecimalFormat df = new DecimalFormat("#.00"); 

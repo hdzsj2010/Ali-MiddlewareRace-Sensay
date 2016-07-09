@@ -38,6 +38,7 @@ public class RatioCalculate implements IRichBolt {
 	private static DecimalFormat df = new DecimalFormat("#.00"); 
 	private static boolean stopThread=false;
 	OutputCollector collector;
+	private static final String ratioPrefix="ratio_457160tzhg_";
 	
 	@Override
 	public void prepare(Map stormConf, TopologyContext context,
@@ -73,10 +74,10 @@ public class RatioCalculate implements IRichBolt {
 						pcAmount+=platformMap.get(i).getPcAmount();
 						if(pcAmount>0.01) {
 							ratio=wirelessAmount/pcAmount;
-							result = tairManager.put(RaceConfig.TairNamespace, RaceConfig.prex_ratio +i, df.format(ratio));
+							result = tairManager.put(RaceConfig.TairNamespace, ratioPrefix +i, df.format(ratio));
 							//LOG.info("Tair Input: "+ RaceConfig.prex_ratio + i + ": " + pcAmount + " " + wirelessAmount + " " + df.format(ratio));
 							if (!result.isSuccess())
-								LOG.error("fail input: "+ RaceConfig.prex_ratio + i + ":" + df.format(ratio));
+								LOG.error("fail input: "+ ratioPrefix + i + ":" + df.format(ratio));
 						}
 					}					
 				}			
