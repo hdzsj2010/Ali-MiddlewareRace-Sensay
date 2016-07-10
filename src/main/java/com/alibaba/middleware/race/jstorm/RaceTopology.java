@@ -31,8 +31,8 @@ public class RaceTopology {
         //并发数
         int consumerDemoSpout_Parallelism_hint = 2;
         int ratioCalculate_Parallelism_hint = 1;
-        int messageTagsDeal_Parallelism_hint = 5;
-        int messageCount_Parallelism_hint = 5;
+        int messageTagsDeal_Parallelism_hint = 6;
+        int messageCount_Parallelism_hint = 6;
 
         TopologyBuilder builder = new TopologyBuilder();
         
@@ -48,7 +48,7 @@ public class RaceTopology {
         conf.setNumWorkers(4);
         conf.setNumAckers(2);
         //设置spout中存在最大的tuple数量
-        conf.setMaxSpoutPending(15000);
+        //conf.setMaxSpoutPending(15000);
         //conf.put(Config.STORM_CLUSTER_MODE, "distributed");
         //设置topolog模式为分布式，这样topology就可以放到JStorm集群上运行
         try {

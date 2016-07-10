@@ -62,6 +62,7 @@ public class MessageCount implements IRichBolt {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
+				boolean result;
 				while(!stopThread) {
 					try {
 						Thread.sleep(200);//每隔0.2秒存一次数据
@@ -71,16 +72,18 @@ public class MessageCount implements IRichBolt {
 					}
 					
 					for(Map.Entry<Long, PaymentCount> entry:tmallMap.entrySet()) {
-						ResultCode result = tairManager.put(namespace, tmallPrefix+entry.getKey(), entry.getValue().getCurrentTotal());
+						//ResultCode result = tairManager.put(namespace, tmallPrefix+entry.getKey(), entry.getValue().getCurrentTotal());
+						result = entry.getValue().writeIntoTair(tmallPrefix, entry.getKey(), tairManager);
 						//LOG.info("Tair Input: "+tmallPrefix+ entry.getKey() + entry.getValue());
-						if (!result.isSuccess())
+						if (!result)
 			                LOG.error("fail input: "+tmallPrefix+ entry.getKey() + entry.getValue());
 					}
 					
 					for(Map.Entry<Long, PaymentCount> entry:taobaoMap.entrySet()) {
-						ResultCode result = tairManager.put(namespace, taobaoPrefix+entry.getKey(), entry.getValue().getCurrentTotal());
+						//ResultCode result = tairManager.put(namespace, taobaoPrefix+entry.getKey(), entry.getValue().getCurrentTotal());
+						result = entry.getValue().writeIntoTair(taobaoPrefix, entry.getKey(), tairManager);
 						//LOG.info("Tair Input: "+ taobaoPrefix + entry.getKey() + entry.getValue());
-						if (!result.isSuccess())
+						if (!result)
 			                LOG.error("fail input: "+ taobaoPrefix + entry.getKey() + entry.getValue());
 					}
 				}
