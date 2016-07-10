@@ -65,7 +65,7 @@ public class MessageCount implements IRichBolt {
 				boolean result;
 				while(!stopThread) {
 					try {
-						Thread.sleep(200);//每隔0.2秒存一次数据
+						Thread.sleep(500);//每隔0.2秒存一次数据
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -75,16 +75,16 @@ public class MessageCount implements IRichBolt {
 						//ResultCode result = tairManager.put(namespace, tmallPrefix+entry.getKey(), entry.getValue().getCurrentTotal());
 						result = entry.getValue().writeIntoTair(tmallPrefix, entry.getKey(), tairManager);
 						//LOG.info("Tair Input: "+tmallPrefix+ entry.getKey() + entry.getValue());
-						if (!result)
-			                LOG.error("fail input: "+tmallPrefix+ entry.getKey() + entry.getValue());
+						/*if (!result)
+			                LOG.error("fail input: "+tmallPrefix+ entry.getKey() + entry.getValue());*/
 					}
 					
 					for(Map.Entry<Long, PaymentCount> entry:taobaoMap.entrySet()) {
 						//ResultCode result = tairManager.put(namespace, taobaoPrefix+entry.getKey(), entry.getValue().getCurrentTotal());
 						result = entry.getValue().writeIntoTair(taobaoPrefix, entry.getKey(), tairManager);
 						//LOG.info("Tair Input: "+ taobaoPrefix + entry.getKey() + entry.getValue());
-						if (!result)
-			                LOG.error("fail input: "+ taobaoPrefix + entry.getKey() + entry.getValue());
+						/*if (!result)
+			                LOG.error("fail input: "+ taobaoPrefix + entry.getKey() + entry.getValue());*/
 					}
 				}
 			}
