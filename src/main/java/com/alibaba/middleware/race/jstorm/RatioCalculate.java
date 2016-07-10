@@ -54,7 +54,7 @@ public class RatioCalculate implements IRichBolt {
 				// TODO Auto-generated method stub
 				while(!stopThread) {
 					try {
-						Thread.sleep(200); 
+						Thread.sleep(800); 
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
