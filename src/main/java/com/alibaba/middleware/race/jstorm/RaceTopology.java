@@ -37,7 +37,6 @@ public class RaceTopology {
         TopologyBuilder builder = new TopologyBuilder();
         
         builder.setSpout("ConsumerDemoSpout", new ConsumerDemoSpout(), consumerDemoSpout_Parallelism_hint);//(id,spout实例，并发设置)
-        //builder.setBolt("MessageTagsDeal", new MessageTagsDeal(), messageTagsDeal_Parallelism_hint).fieldsGrouping("ConsumerDemoSpout", new Fields("orderId"));
         builder.setBolt("RatioCalculate", new RatioCalculate(), ratioCalculate_Parallelism_hint).shuffleGrouping("ConsumerDemoSpout", RaceConfig.ratioBoltStreamId);
         builder.setBolt("MessageTagsDeal", new MessageTagsDeal(), messageTagsDeal_Parallelism_hint).fieldsGrouping("ConsumerDemoSpout", RaceConfig.messageBoltStreamId, new Fields("orderId"));
         //builder.setBolt("MessageTagsDeal", new MessageTagsDeal(), messageTagsDeal_Parallelism_hint).fieldsGrouping("ConsumerDemoSpout", new Fields("orderId"));
@@ -49,7 +48,7 @@ public class RaceTopology {
         conf.setNumWorkers(4);
         conf.setNumAckers(2);
         //设置spout中存在最大的tuple数量
-        conf.setMaxSpoutPending(10000);
+        conf.setMaxSpoutPending(15000);
         //conf.put(Config.STORM_CLUSTER_MODE, "distributed");
         //设置topolog模式为分布式，这样topology就可以放到JStorm集群上运行
         try {

@@ -128,12 +128,13 @@ public class ConsumerDemoSpout implements IRichSpout,MessageListenerConcurrently
 	@Override
 	public void ack(Object msgId) {
 		// TODO Auto-generated method stub
-		LOG.warn("Shouldn't go this function");
+		//LOG.warn("Shouldn't go this function");
 	}
 	@Override
 	public void fail(Object msgId) {
 		// TODO Auto-generated method stub
-		LOG.warn("Shouldn't go this function");
+		collector.emit(new Values(msgId), msgId);
+		//LOG.warn("Shouldn't go this function");
 	}
 	@Override
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
