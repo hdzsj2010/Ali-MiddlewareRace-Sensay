@@ -25,7 +25,13 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
-
+/*
+ * 1.spout对象必须是继承Serializable， 因此要求spout内所有数据结构必须是可序列化的
+ * 2.spout可以有构造函数，但构造函数只执行一次，是在提交任务时，创建spout对象,
+ * 因此在task分配到具体worker之前的初始化工作可以在此处完成，
+ * 一旦完成，初始化的内容将携带到每一个task内
+ * （因为提交任务时将spout序列化到文件中去，在worker起来时再将spout从文件中反序列化出来）
+ */
 public class ConsumerDemoSpout implements IRichSpout,MessageListenerConcurrently  {
     private static Logger LOG = LoggerFactory.getLogger(ConsumerDemoSpout.class);
     
