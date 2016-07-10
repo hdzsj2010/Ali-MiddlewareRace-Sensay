@@ -20,7 +20,6 @@ import backtype.storm.topology.IRichBolt;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Tuple;
 
-import com.alibaba.middleware.race.RaceConfig;
 import com.alibaba.middleware.race.Tair.TairFactory;
 import com.alibaba.middleware.race.model.PaymentMessage;
 import com.alibaba.middleware.race.model.RatioCount;
@@ -30,6 +29,7 @@ import com.taobao.tair.TairManager;
 public class RatioCalculate implements IRichBolt {
 	private static Logger LOG = LoggerFactory.getLogger(RatioCalculate.class);
 	private Lock platformLock = new ReentrantLock();
+	private Lock platformAllLock = new ReentrantLock();
 	private static Map<Long, RatioMessage> platformMap = new ConcurrentHashMap<Long, RatioMessage>();
 	private static Map<Long, RatioCount> platformAllMap = new ConcurrentHashMap<Long, RatioCount>();
 	private static ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -94,11 +94,18 @@ public class RatioCalculate implements IRichBolt {
 							//当前时分交易总额对比，有更新则写入Tair
 							double pcAll = platformAllMap.get(i).getPcAmountAll();
 							double wirelessAll = platformAllMap.get(i).getWirelessAmountAll();
-							if(pcAll<pcAmount)
-								platformAllMap.get(i).setPcAmountAll(pcAmount);
-							if(wirelessAll<wirelessAmount)
-								platformAllMap.get(i).setWirelessAll(wirelessAmount);
-							platformAllMap.get(i).writeIntoTair(ratioPrefix, i, tairManager, df);
+							platformAllLock.lock();
+							try{
+								if(pcAll<pcAmount)
+									platformAllMap.get(i).setPcAmountAll(pcAmount);
+								if(wirelessAll<wirelessAmount)
+									platformAllMap.get(i).setWirelessAll(wirelessAmount);
+								platformAllMap.get(i).writeIntoTair(ratioPrefix, i, tairManager, df);
+							}catch(Exception e){
+								// TODO: handle exception
+							}finally{
+								platformAllLock.unlock();
+							}
 							/*if (!result)
 								LOG.error("fail input: "+ RaceConfig.prex_ratio + i + ":" + df.format(platformAllMap.get(i).getRatio()));*/
 						}

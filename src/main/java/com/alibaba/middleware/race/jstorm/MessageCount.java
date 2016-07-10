@@ -1,9 +1,5 @@
 package com.alibaba.middleware.race.jstorm;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -17,8 +13,6 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.middleware.race.RaceConfig;
 import com.alibaba.middleware.race.Tair.TairFactory;
 import com.alibaba.middleware.race.model.PaymentCount;
-import com.alibaba.middleware.race.model.RatioMessage;
-import com.taobao.tair.ResultCode;
 import com.taobao.tair.TairManager;
 
 import backtype.storm.task.OutputCollector;
@@ -42,7 +36,7 @@ public class MessageCount implements IRichBolt {
 	
 	private static ExecutorService executorService = Executors.newSingleThreadExecutor();
 	private static TairManager tairManager;
-	private static final int namespace=RaceConfig.TairNamespace;
+	//private static final int namespace=RaceConfig.TairNamespace;
 	private static final String tmallPrefix="platformTmall_457160tzhg_";
 	private static final String taobaoPrefix="platformTaobao_457160tzhg_";
 	
@@ -65,7 +59,7 @@ public class MessageCount implements IRichBolt {
 				boolean result;
 				while(!stopThread) {
 					try {
-						Thread.sleep(500);//每隔0.2秒存一次数据
+						Thread.sleep(300);//每隔0.3秒存一次数据
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

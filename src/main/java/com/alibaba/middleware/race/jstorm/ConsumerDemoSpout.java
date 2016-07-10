@@ -84,7 +84,7 @@ public class ConsumerDemoSpout implements IRichSpout,MessageListenerConcurrently
 			}).start();
 		}
 		
-		LOG.info("Successfully init " + id);
+		//LOG.info("Successfully init " + id);
 
 	}
 	@Override
@@ -178,7 +178,7 @@ public class ConsumerDemoSpout implements IRichSpout,MessageListenerConcurrently
             byte [] body = msg.getBody();
             if (body.length == 2 && body[0] == 0 && body[1] == 0) {
                 //Info: 生产者停止生成数据, 并不意味着马上结束
-                LOG.info("Got the end signal");
+                //LOG.info("Got the end signal");
                 continue;
             }
             PaymentMessage paymentMessage=null;
