@@ -29,7 +29,7 @@ import com.taobao.tair.TairManager;
 public class RatioCalculate implements IRichBolt {
 	private static Logger LOG = LoggerFactory.getLogger(RatioCalculate.class);
 	private Lock platformLock = new ReentrantLock();
-	private Lock platformAllLock = new ReentrantLock();
+	//private Lock platformAllLock = new ReentrantLock();
 	private static Map<Long, RatioMessage> platformMap = new ConcurrentHashMap<Long, RatioMessage>();
 	private static Map<Long, RatioCount> platformAllMap = new ConcurrentHashMap<Long, RatioCount>();
 	private static ExecutorService executorService = Executors.newSingleThreadExecutor();
@@ -54,7 +54,7 @@ public class RatioCalculate implements IRichBolt {
 				// TODO Auto-generated method stub
 				while(!stopThread) {
 					try {
-						Thread.sleep(800); 
+						Thread.sleep(200); 
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -30,7 +30,7 @@ public class RaceTopology {
         Config conf = new Config();
         //并发数
         int consumerDemoSpout_Parallelism_hint = 2;
-        int ratioCalculate_Parallelism_hint = 2;
+        int ratioCalculate_Parallelism_hint = 1;
         int messageTagsDeal_Parallelism_hint = 6;
         int messageCount_Parallelism_hint = 6;
 
