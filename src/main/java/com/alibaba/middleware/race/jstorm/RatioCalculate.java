@@ -94,18 +94,14 @@ public class RatioCalculate implements IRichBolt {
 							//当前时分交易总额对比，有更新则写入Tair
 							double pcAll = platformAllMap.get(i).getPcAmountAll();
 							double wirelessAll = platformAllMap.get(i).getWirelessAmountAll();
-							platformAllLock.lock();
-							try{
-								if(pcAll<pcAmount)
-									platformAllMap.get(i).setPcAmountAll(pcAmount);
-								if(wirelessAll<wirelessAmount)
-									platformAllMap.get(i).setWirelessAll(wirelessAmount);
-								platformAllMap.get(i).writeIntoTair(ratioPrefix, i, tairManager, df);
-							}catch(Exception e){
-								// TODO: handle exception
-							}finally{
-								platformAllLock.unlock();
-							}
+							//platformAllLock.lock();
+							
+							if(pcAll<pcAmount)
+								platformAllMap.get(i).setPcAmountAll(pcAmount);
+							if(wirelessAll<wirelessAmount)
+								platformAllMap.get(i).setWirelessAll(wirelessAmount);
+							platformAllMap.get(i).writeIntoTair(ratioPrefix, i, tairManager, df);
+							
 							/*if (!result)
 								LOG.error("fail input: "+ RaceConfig.prex_ratio + i + ":" + df.format(platformAllMap.get(i).getRatio()));*/
 						}

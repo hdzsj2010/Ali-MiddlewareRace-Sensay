@@ -59,7 +59,7 @@ public class MessageCount implements IRichBolt {
 				boolean result;
 				while(!stopThread) {
 					try {
-						Thread.sleep(800);//每隔0.8秒存一次数据
+						Thread.sleep(500);//每隔0.5秒存一次数据
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
