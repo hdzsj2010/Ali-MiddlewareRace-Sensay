@@ -1,4 +1,4 @@
-﻿中间件性能大赛第一赛季 Jstorm，RocketMQ，Tair实例代码
+﻿2016阿里天池中间件性能大赛第一赛季 Jstorm，RocketMQ，Tair实例代码
 ﻿<br><br>
 ﻿配置一个消费组，4个Worker，共20个左右Task
 ﻿<br><br>
